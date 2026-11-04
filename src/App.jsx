@@ -216,6 +216,7 @@ export default function App() {
   }, [storedHandle, libraryFromHandle, showLibrary])
   useEffect(() => downloads.setOnSaved(() => rescan()), [rescan])
   const jobs = useSyncExternalStore(downloads.subscribe, downloads.getJobs)
+  const online = useSyncExternalStore(subscribeOnline, () => navigator.onLine)
   const activeDownloads = jobs.filter((j) => j.status === 'downloading').length
   const folders = useMemo(() => {
     const set = new Set(videos.map((v) => v.folder))
@@ -337,9 +338,20 @@ export default function App() {
       {status !== 'ready' && (
         <button className="btn ghost icon floating-settings" onClick={() => setShowSettings(true)} title="Appearance">🎨</button>
       )}
+      {!online && (
+        <div className="offline-pill" title="Your videos, library and player all work offline. Downloading from links and the first “Make playable” need internet.">
+          Offline · using the saved copy
+        </div>
+      )}
       {showSettings && <SettingsModal settings={settings} onChange={setSettings} onClose={() => setShowSettings(false)} />}
     </div>
   )
+}
+
+function subscribeOnline(cb) {
+  window.addEventListener('online', cb)
+  window.addEventListener('offline', cb)
+  return () => { window.removeEventListener('online', cb); window.removeEventListener('offline', cb) }
 }
 
 function SearchBox({ initial }) {

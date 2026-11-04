@@ -1,0 +1,11 @@
+{
+  "name": "Vidshelf",
+  "short_name": "Vidshelf",
+  "description": "Your video folders, YouTube-style. Runs entirely in your browser.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1a0f12",
+  "theme_color": "#1a0f12",
+  "icons": [{ "src": "app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

@@ -112,6 +112,8 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
 
   const changeRate = (r) => {
     r = Math.round(Math.min(16, Math.max(0.1, r)) * 100) / 100
+    wantedRate.current = r
+    rateFights.current = 0
     if (ref.current) { ref.current.defaultPlaybackRate = r; ref.current.playbackRate = r }
     setRate(r)
     showFlash(`${r}x`)
@@ -123,6 +125,9 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
     }, 300)
   }
   const rateCheck = useRef(null)
+  // The speed the user picked, and how many times we've re-applied it after something else changed it.
+  const wantedRate = useRef(rate)
+  const rateFights = useRef(0)
 
   const flashTimer = useRef(null)
   const showFlash = (text) => {
@@ -221,7 +226,15 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
                   if (p && p.t > 5 && p.t < el.duration - 10) el.currentTime = p.t
                 }}
                 onRateChange={(e) => {
-                  setRate(e.currentTarget.playbackRate)
+                  const el = e.currentTarget
+                  // A speed extension reset it: put the user's speed back, but only a few times so we
+                  // don't fight an extension that also insists (that would make playback stutter).
+                  if (Math.abs(el.playbackRate - wantedRate.current) > 0.001 && rateFights.current < 3) {
+                    rateFights.current++
+                    el.playbackRate = wantedRate.current
+                    return
+                  }
+                  setRate(el.playbackRate)
                 }}
                 onTimeUpdate={(e) => {
                   setNow(e.currentTarget.currentTime)
