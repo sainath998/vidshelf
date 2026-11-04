@@ -2,11 +2,11 @@ import { ACCENTS, CARD_SIZES, CORNERS, DEFAULT_SETTINGS, FONT_SCALES, THEMES } f
 
 const cap = (s) => s[0].toUpperCase() + s.slice(1)
 
-function Segmented({ options, value, onChange }) {
+function Segmented({ options, value, onChange, labels = {} }) {
   return (
     <div className="segmented">
       {options.map((o) => (
-        <button key={o} className={value === o ? 'active' : ''} onClick={() => onChange(o)}>{cap(o)}</button>
+        <button key={o} className={value === o ? 'active' : ''} onClick={() => onChange(o)}>{labels[o] || cap(o)}</button>
       ))}
     </div>
   )
@@ -67,6 +67,12 @@ export default function SettingsModal({ settings, onChange, onClose }) {
         <div className="setting">
           <div className="setting-label">Text size</div>
           <Segmented options={Object.keys(FONT_SCALES)} value={settings.font} onChange={set('font')} />
+        </div>
+
+        <div className="setting">
+          <div className="setting-label">Video titles</div>
+          <Segmented options={['file', 'metadata']} labels={{ file: 'File name', metadata: 'From metadata' }} value={settings.titles} onChange={set('titles')} />
+          <div className="muted small">“From metadata” uses the title saved inside the file or its .info.json, when there is one</div>
         </div>
 
         <div className="setting setting-inline">

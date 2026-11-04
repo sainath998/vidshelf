@@ -244,6 +244,14 @@ export default function App() {
     requestThumb(updated, (r) => applyThumb(video.id, r))
   }, [applyThumb])
 
+  // Video titles come from the file name unless the user picked "From metadata" in settings.
+  const shownMetas = useMemo(() => {
+    if (settings.titles === 'metadata') return metas
+    const out = {}
+    for (const id in metas) out[id] = metas[id]?.title ? { ...metas[id], title: null } : metas[id]
+    return out
+  }, [metas, settings.titles])
+
   const current = useMemo(
     () => (route.path === '/watch' ? videos.find((v) => v.id === route.params.get('v')) : null),
     [route, videos],
@@ -283,7 +291,7 @@ export default function App() {
         video={current}
         videos={videos}
         thumbs={thumbs}
-        metas={metas}
+        metas={shownMetas}
         progress={progress}
         onProgress={updateProgress}
         canSaveNextTo={!!storedHandle && libraryFromHandle}
@@ -298,7 +306,7 @@ export default function App() {
       <Library
         videos={videos}
         thumbs={thumbs}
-        metas={metas}
+        metas={shownMetas}
         progress={progress}
         folder={route.params.get('folder')}
         query={route.params.get('q') || ''}
