@@ -319,7 +319,7 @@ export default function App() {
     <div className="app">
       {status === 'ready' && (
         <header className="topbar">
-          <a className="logo" href="#/">▶ Vidshelf</a>
+          <a className="logo" href="#/">▶ VideoShelf</a>
           <SearchBox initial={route.params.get('q') || ''} />
           <div className="topbar-actions">
             <a className={`btn ghost ${route.path === '/download' ? 'active' : ''}`} href="#/download" title="Download videos from links">

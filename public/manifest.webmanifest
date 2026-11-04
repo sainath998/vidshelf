@@ -1,6 +1,6 @@
 {
-  "name": "Vidshelf",
-  "short_name": "Vidshelf",
+  "name": "VideoShelf",
+  "short_name": "VideoShelf",
   "description": "Your video folders, YouTube-style. Runs entirely in your browser.",
   "start_url": "./",
   "scope": "./",

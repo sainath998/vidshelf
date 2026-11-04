@@ -4,7 +4,7 @@ export default function Landing({ status, scanInfo, onStopScan, onCancelScan, su
   return (
     <main className="landing">
       <div className="landing-card">
-        <div className="landing-logo">▶ Vidshelf</div>
+        <div className="landing-logo">▶ VideoShelf</div>
         <h1>Your video folders, YouTube-style.</h1>
         <p className="muted">
           Pick a folder and every video inside it becomes a browsable library with thumbnails,
@@ -50,7 +50,7 @@ export default function Landing({ status, scanInfo, onStopScan, onCancelScan, su
         )}
         {!supportsPicker && (
           <p className="hint">
-            Tip: in Chrome, Edge or Brave, Vidshelf remembers your folder between visits.
+            Tip: in Chrome, Edge or Brave, VideoShelf remembers your folder between visits.
             In this browser you'll need to pick it each time.
           </p>
         )}

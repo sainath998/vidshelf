@@ -56,7 +56,7 @@ const extOf = (url) => {
 
 export function ytDlpCommand(url) {
   // Saves title/channel/views/description/chapters (.info.json), the real thumbnail and English subtitles,
-  // all of which Vidshelf reads and shows.
+  // all of which VideoShelf reads and shows.
   return `yt-dlp -f "bv*+ba/b" --merge-output-format mp4 --embed-metadata --embed-chapters --write-info-json --write-thumbnail --convert-thumbnails jpg --write-subs --write-auto-subs --sub-langs en --convert-subs srt -o "%(title)s.%(ext)s" "${url}"`
 }
 

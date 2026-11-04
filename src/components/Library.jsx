@@ -117,7 +117,7 @@ export default function Library({
           {shown.length === 0 ? (
             <div className="empty">
               <p className="muted">{query || folder ? 'No videos match.' : 'No videos found in this folder.'}</p>
-              {!query && !folder && <p className="muted small">Vidshelf looks for MP4, MKV, WebM, MOV, AVI and more, in every subfolder.</p>}
+              {!query && !folder && <p className="muted small">VideoShelf looks for MP4, MKV, WebM, MOV, AVI and more, in every subfolder.</p>}
             </div>
           ) : (
             <div className="grid">

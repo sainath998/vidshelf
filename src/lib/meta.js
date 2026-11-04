@@ -1,5 +1,5 @@
 // Reads video metadata in the browser, without FFmpeg:
-//  • sidecar "<name>.info.json" (yt-dlp, and Vidshelf's own downloader)
+//  • sidecar "<name>.info.json" (yt-dlp, and VideoShelf's own downloader)
 //  • tags embedded in MP4/MOV (iTunes-style ilst + Nero chapters) and MKV/WebM (EBML Info/Tags/Chapters/Attachments)
 // Result: { title, channel, channelUrl, date, description, views, likes, comments, url, site, tags, chapters, duration, cover }
 import { get, set } from './db'

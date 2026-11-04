@@ -1,4 +1,4 @@
-# Vidshelf — handoff notes
+# VideoShelf — handoff notes
 
 ## What it is
 A **static, backend-free web app** (React 19 + Vite 8, plain JS, no TypeScript) that turns a local folder of videos into a
@@ -16,7 +16,7 @@ Run: `npm install && npm run dev` (http://localhost:5173) · Build: `npm run bui
   **Don't redo the home/Library layout without asking first.** Smaller, targeted polish is fine.
 - Likes features to be tested before being called done. Testing so far uses headless Chrome via `playwright-core`
   with `channel: 'chrome'`; test scripts live outside the repo in `/tmp/vidshelf-test/runner/`.
-- Uses the "Global Speed" Chrome extension. Its default A/S/D hotkeys clash with Vidshelf's own A/S/D speed keys. A web page can't
+- Uses the "Global Speed" Chrome extension. Its default A/S/D hotkeys clash with VideoShelf's own A/S/D speed keys. A web page can't
   override this; the user needs to disable the extension on the site or remove those hotkeys.
 
 ## Architecture

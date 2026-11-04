@@ -41,7 +41,7 @@ function build(entries) {
   for (const e of entries) {
     if (SUB_EXT.includes(extOf(e.path))) subs.set(stripExt(e.path).toLowerCase(), e.file)
   }
-  // "<name>.vidshelf.mp4" files are converted copies made by Vidshelf: attach them to the original.
+  // "<name>.vidshelf.mp4" files are converted copies made by VideoShelf: attach them to the original.
   const converted = new Map()
   for (const e of entries) {
     if (e.path.toLowerCase().endsWith('.vidshelf.mp4')) converted.set(e.path.slice(0, -'.vidshelf.mp4'.length).toLowerCase(), e.file)

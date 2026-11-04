@@ -1,5 +1,5 @@
 // Offline support. vite.config.js fills in VERSION and PRECACHE at build time.
-// The app shell is cached on first visit so Vidshelf opens without internet.
+// The app shell is cached on first visit so VideoShelf opens without internet.
 const VERSION = '__VERSION__'
 const PRECACHE = __PRECACHE__
 const SHELL = `vidshelf-shell-${VERSION}`

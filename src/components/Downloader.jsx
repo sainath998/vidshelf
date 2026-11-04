@@ -25,7 +25,7 @@ function YtDlpHelp({ url, reason }) {
   return (
     <div className="dl-help">
       <p>{reason}</p>
-      <p className="muted small">Run this on your computer instead (free, open-source <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noreferrer">yt-dlp</a>), inside your Vidshelf folder:</p>
+      <p className="muted small">Run this on your computer instead (free, open-source <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noreferrer">yt-dlp</a>), inside your VideoShelf folder:</p>
       <CopyBox text={ytDlpCommand(url)} />
       <p className="muted small">
         Install once: <code>brew install yt-dlp ffmpeg</code> (Mac) · <code>winget install yt-dlp</code> (Windows). Then click <strong>Rescan</strong> here and the video appears in your library.
@@ -80,14 +80,14 @@ function JobCard({ job, onStart }) {
       {job.status === 'ready' && info && (
         <>
           {info.kind === 'platform' && (
-            <YtDlpHelp url={job.url} reason={`${info.platform} hides and locks its video links, so no website can download them without its own server. Vidshelf has no server — everything runs on your computer.`} />
+            <YtDlpHelp url={job.url} reason={`${info.platform} hides and locks its video links, so no website can download them without its own server. VideoShelf has no server — everything runs on your computer.`} />
           )}
           {info.kind === 'blocked' && (
             <>
-              <p className="small">This server doesn’t let websites read its files, so Vidshelf can’t save it into your library directly.</p>
+              <p className="small">This server doesn’t let websites read its files, so VideoShelf can’t save it into your library directly.</p>
               <div className="dl-row">
                 <a className="btn primary" href={job.url} download target="_blank" rel="noreferrer">⬇ Download with browser</a>
-                <span className="muted small">Saves to your Downloads folder (if the link is a file). Move it into your Vidshelf folder afterwards.</span>
+                <span className="muted small">Saves to your Downloads folder (if the link is a file). Move it into your VideoShelf folder afterwards.</span>
               </div>
               <details className="dl-more"><summary className="muted small">It’s a video page, not a file?</summary><YtDlpHelp url={job.url} reason="" /></details>
             </>
@@ -195,7 +195,7 @@ export default function Downloader({ folders, root, canSaveToFolder, onRescan })
     if (target !== BROWSER) {
       // Ask for write access while we still have the user's click.
       const perm = await root.requestPermission({ mode: 'readwrite' })
-      if (perm !== 'granted') return alert('Vidshelf needs permission to save into your folder. You can choose “Downloads folder” instead.')
+      if (perm !== 'granted') return alert('VideoShelf needs permission to save into your folder. You can choose “Downloads folder” instead.')
       dl.start(job.id, { type: 'folder', root, folder: target })
     } else {
       dl.start(job.id, { type: 'browser' })

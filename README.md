@@ -1,4 +1,4 @@
-# Vidshelf
+# VideoShelf
 
 Pick a local folder → every video inside becomes a YouTube-style library. 100% client-side: nothing is uploaded, so hosting is a static site (≈ $0/month).
 

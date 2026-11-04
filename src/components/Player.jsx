@@ -28,7 +28,7 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
   useEffect(() => { onNeedThumb?.(video) }, [video, onNeedThumb])
   useEffect(() => {
     const prev = document.title
-    document.title = `${title} — Vidshelf`
+    document.title = `${title} — VideoShelf`
     return () => { document.title = prev }
   }, [title])
   const seekTo = (t) => {
@@ -199,7 +199,7 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
             <div className="video-error">
               <p>⚠️ Your browser can't play this file directly{resolved?.converted ? ' (converted copy)' : ''}.</p>
               <p className="muted small">{error}</p>
-              <p className="muted small">Vidshelf can convert it to a playable MP4 right here in your browser. You choose how.</p>
+              <p className="muted small">VideoShelf can convert it to a playable MP4 right here in your browser. You choose how.</p>
               <div className="controls">
                 <button className="btn primary" onClick={() => setShowConvert(true)}>🛠 Make playable…</button>
                 {next && <button className="btn ghost" onClick={() => goTo(next)}>Skip to next</button>}
