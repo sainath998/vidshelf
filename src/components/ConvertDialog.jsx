@@ -178,7 +178,7 @@ export default function ConvertDialog({ video, canSaveNextTo, rootHandle, onClos
                   <span className="muted small block">
                     {canSaveNextTo
                       ? `Saved as “${convertedName(video)}” in the same folder. Works on every device that opens this folder.`
-                      : 'Needs Chrome, Edge or Brave (folder write access).'}
+                      : 'Needs Chrome or Edge, or Brave with folder access turned on.'}
                   </span>
                 </span>
               </label>

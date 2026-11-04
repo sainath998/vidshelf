@@ -1,6 +1,14 @@
+import { useEffect, useState } from 'react'
+import CopyBox from './CopyBox'
 import FallbackPicker from './FallbackPicker'
 
+// Brave hides the File System Access API behind a flag, so folders can't be remembered until it's turned on.
+const BRAVE_FLAG = 'brave://flags/#file-system-access-api'
+
 export default function Landing({ status, scanInfo, onStopScan, onCancelScan, supportsPicker, storedName, onPick, onReopen, onFallbackFiles }) {
+  const [isBrave, setIsBrave] = useState(false)
+  useEffect(() => { navigator.brave?.isBrave?.().then(setIsBrave, () => {}) }, [])
+  const lastFolder = !supportsPicker && localStorage.getItem('vidshelf.lastFolder')
   return (
     <main className="landing">
       <div className="landing-card">
@@ -36,7 +44,7 @@ export default function Landing({ status, scanInfo, onStopScan, onCancelScan, su
                 {status === 'needs-permission' ? 'Choose a different folder' : 'Choose a video folder'}
               </button>
             ) : (
-              <FallbackPicker className="btn primary big" label="Choose a video folder" onFiles={onFallbackFiles} />
+              <FallbackPicker className="btn primary big" label={lastFolder ? `Pick “${lastFolder}” again` : 'Choose a video folder'} onFiles={onFallbackFiles} />
             )}
             <a className="btn ghost big" href="#/download">⬇ Download from a link</a>
           </div>
@@ -48,10 +56,20 @@ export default function Landing({ status, scanInfo, onStopScan, onCancelScan, su
             Pick a folder inside them instead, such as Desktop/Videos.
           </p>
         )}
-        {!supportsPicker && (
+        {!supportsPicker && isBrave && (
+          <div className="brave-tip">
+            <p className="hint">
+              <strong>Using Brave?</strong> Brave turns off folder access by default, so VideoShelf can’t remember your folder
+              and you’ll need to pick it each visit (your progress and settings are still saved). To fix it, paste this into the
+              address bar, set it to <strong>Enabled</strong> and relaunch Brave:
+            </p>
+            <CopyBox text={BRAVE_FLAG} />
+          </div>
+        )}
+        {!supportsPicker && !isBrave && (
           <p className="hint">
-            Tip: in Chrome, Edge or Brave, VideoShelf remembers your folder between visits.
-            In this browser you'll need to pick it each time.
+            Tip: in Chrome or Edge, VideoShelf remembers your folder between visits.
+            In this browser you’ll need to pick it each time (your progress and settings are still saved).
           </p>
         )}
         <ul className="features">

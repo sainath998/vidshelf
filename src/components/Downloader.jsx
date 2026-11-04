@@ -3,23 +3,9 @@ import * as dl from '../lib/downloads'
 import { ytDlpCommand } from '../lib/fetcher'
 import { fmtSize, fmtTime, folderLabel } from '../lib/format'
 import { nav } from '../nav'
+import CopyBox from './CopyBox'
 
 const BROWSER = '__browser__'
-
-function CopyBox({ text }) {
-  const [copied, setCopied] = useState(false)
-  return (
-    <div className="copybox">
-      <code>{text}</code>
-      <button
-        className="btn ghost small"
-        onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500) }}
-      >
-        {copied ? 'Copied ✓' : 'Copy'}
-      </button>
-    </div>
-  )
-}
 
 function YtDlpHelp({ url, reason }) {
   return (
@@ -235,7 +221,7 @@ export default function Downloader({ folders, root, canSaveToFolder, onRescan })
           </label>
           <button className="btn primary big" type="submit" disabled={!text.trim()}>Add links</button>
         </div>
-        {!canSaveToFolder && <p className="muted small">Saving straight into your library needs Chrome, Edge or Brave with a picked folder.</p>}
+        {!canSaveToFolder && <p className="muted small">Saving straight into your library needs Chrome or Edge (or Brave with folder access turned on) and a picked folder.</p>}
       </form>
 
       <p className="muted small dl-legal">Only download videos you own or have permission to save. Respect each site’s terms and copyright.</p>

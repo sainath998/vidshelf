@@ -203,6 +203,9 @@ export default function App() {
   }
 
   const onFallbackFiles = (files) => {
+    // Without folder access the folder can't be remembered, but its name can: the home screen asks for it again.
+    const name = files[0]?.webkitRelativePath?.split('/')[0]
+    if (name) localStorage.setItem('vidshelf.lastFolder', name)
     nav('/')
     setLibraryFromHandle(false)
     setActiveRoot(-1)
@@ -226,14 +229,28 @@ export default function App() {
 
   // ---- watch progress (debounced persistence) ----
   const saveTimer = useRef(null)
+  const progressRef = useRef(progress)
+  progressRef.current = progress
   const updateProgress = useCallback((id, t, d) => {
     if (!Number.isFinite(d) || d <= 0) return
-    setProgress((p) => {
-      const next = { ...p, [id]: { t, d, at: Date.now() } }
+    const next = { ...progressRef.current, [id]: { t, d, at: Date.now() } }
+    progressRef.current = next
+    setProgress(next)
+    clearTimeout(saveTimer.current)
+    saveTimer.current = setTimeout(() => { saveTimer.current = null; db.set('progress', next).catch(() => {}) }, 500)
+  }, [])
+  // Write any pending progress right away when the tab is hidden or closed.
+  useEffect(() => {
+    const flush = () => {
+      if (!saveTimer.current) return
       clearTimeout(saveTimer.current)
-      saveTimer.current = setTimeout(() => db.set('progress', next).catch(() => {}), 500)
-      return next
-    })
+      saveTimer.current = null
+      db.set('progress', progressRef.current).catch(() => {})
+    }
+    const onHide = () => document.visibilityState === 'hidden' && flush()
+    window.addEventListener('pagehide', flush)
+    document.addEventListener('visibilitychange', onHide)
+    return () => { window.removeEventListener('pagehide', flush); document.removeEventListener('visibilitychange', onHide) }
   }, [])
 
   // A converted copy now exists: play it from now on and refresh its thumbnail.

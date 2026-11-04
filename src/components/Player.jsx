@@ -141,6 +141,14 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
     if (el) onProgress(video.id, el.currentTime, el.duration)
   }
 
+  // Save the position when leaving the tab, so closing it right after seeking isn't lost.
+  useEffect(() => {
+    const onHide = () => document.visibilityState === 'hidden' && save()
+    window.addEventListener('pagehide', save)
+    document.addEventListener('visibilitychange', onHide)
+    return () => { window.removeEventListener('pagehide', save); document.removeEventListener('visibilitychange', onHide) }
+  })
+
   // YouTube-style keyboard shortcuts
   useEffect(() => {
     const onKey = (e) => {
@@ -243,6 +251,7 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
                   if (Date.now() - lastSave.current > 3000) { lastSave.current = Date.now(); save() }
                 }}
                 onPause={save}
+                onSeeked={save}
                 onPlaying={(e) => {
                   const el = e.currentTarget
                   if (resolved?.converted || SAFE_AUDIO_EXT.includes(video.ext)) return
