@@ -8,6 +8,8 @@ const isolation = {
 }
 
 export default defineConfig({
+  // Relative asset paths so the build works at any URL (e.g. GitHub Pages at /vidshelf/).
+  base: './',
   plugins: [react()],
   optimizeDeps: { exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'] },
   worker: { format: 'es' },
