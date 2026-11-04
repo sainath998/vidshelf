@@ -162,6 +162,8 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
         l: () => seek(10),
         ArrowLeft: () => seek(-5),
         ArrowRight: () => seek(5),
+        z: () => seek(-5),
+        x: () => seek(5),
         m: () => { el.muted = !el.muted; showFlash(el.muted ? 'Muted' : 'Unmuted') },
         f: () => (document.fullscreenElement ? document.exitFullscreen() : stageRef.current?.requestFullscreen()),
         t: () => setTheater((x) => !x),
@@ -362,7 +364,7 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
         <details className="shortcuts">
           <summary>Keyboard shortcuts</summary>
           <div className="muted small">
-            Space/K play · J/L ±10s · ←/→ ±5s · ↑/↓ volume · 0–9 jump · F fullscreen · T theater · M mute · C subtitles · Shift+N/P next/prev · / search · D / A speed ±0.1x · S toggle 1x ↔ last speed · Shift+. / , speed steps
+            Space/K play · J/L ±10s · ←/→ or Z/X ±5s · ↑/↓ volume · 0–9 jump · F fullscreen · T theater · M mute · C subtitles · Shift+N/P next/prev · / search · D / A speed ±0.1x · S toggle 1x ↔ last speed · Shift+. / , speed steps
           </div>
         </details>
       </div>

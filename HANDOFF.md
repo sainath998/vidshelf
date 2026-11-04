@@ -42,7 +42,7 @@ A video's `id` is its path including the root folder name, e.g. `Course/Week 1/L
 | `vite.config.js`, `public/_headers`, `vercel.json` | COOP/COEP headers so ffmpeg can use multiple threads. `optimizeDeps.exclude` for `@ffmpeg/*` |
 
 ## Keyboard shortcuts (player)
-Space/K play · J/L ±10s · ←/→ ±5s · ↑/↓ volume · 0–9 jump · F fullscreen · T theater · M mute · C subtitles ·
+Space/K play · J/L ±10s · ←/→ or Z/X ±5s · ↑/↓ volume · 0–9 jump · F fullscreen · T theater · M mute · C subtitles ·
 Shift+N/P next/prev · D/A speed ±0.1x · S toggles 1x ↔ last speed · `<`/`>` speed steps · `/` focuses search (works anywhere).
 
 ## Tested and working (headless Chrome)
