@@ -210,7 +210,9 @@ export default function Downloader({ folders, root, canSaveToFolder, onRescan })
           <h1>Download from a link</h1>
           <p className="muted">Paste links to video files, HLS streams (.m3u8) or pages with an embedded video. Downloads run in this tab — nothing goes through a server.</p>
         </div>
-        <button className="btn ghost" onClick={onRescan} title="Look for new files in your folder">↻ Rescan</button>
+        {onRescan
+          ? <button className="btn ghost" onClick={onRescan} title="Look for new files in your folder">↻ Rescan</button>
+          : <a className="btn ghost" href="#/">← Back</a>}
       </div>
 
       <form className="dl-input" onSubmit={add}>

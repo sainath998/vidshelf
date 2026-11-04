@@ -38,6 +38,7 @@ export default function Landing({ status, scanInfo, onStopScan, onCancelScan, su
             ) : (
               <FallbackPicker className="btn primary big" label="Choose a video folder" onFiles={onFallbackFiles} />
             )}
+            <a className="btn ghost big" href="#/download">⬇ Download from a link</a>
           </div>
         )}
 

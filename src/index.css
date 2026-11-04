@@ -443,6 +443,8 @@ select {
 .dl-field select { border-radius: 10px; }
 .dl-legal { margin: 10px 2px 26px; }
 .dl-jobs { display: grid; gap: 12px; }
+/* let long yt-dlp commands scroll inside the card instead of widening it */
+.dl-jobs > *, .dl-job > * { min-width: 0; }
 .dl-jobs-head { display: flex; justify-content: space-between; align-items: center; }
 .dl-jobs-head h2 { margin: 0; }
 .dl-job { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 10px; }

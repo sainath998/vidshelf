@@ -249,7 +249,10 @@ export default function App() {
   )
 
   let page
-  if (status !== 'ready') {
+  if (status !== 'ready' && status !== 'scanning' && route.path === '/download') {
+    // Downloading works without a library: files go to the browser's Downloads folder.
+    page = <Downloader folders={[]} root={null} canSaveToFolder={false} />
+  } else if (status !== 'ready') {
     page = (
       <Landing
         status={status}
