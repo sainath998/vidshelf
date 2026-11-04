@@ -257,8 +257,9 @@ select {
 .controls .tag { margin: 0; }
 .nosound {
   position: absolute; left: 50%; top: 16px; transform: translateX(-50%); display: flex; gap: 10px; align-items: center;
-  background: rgba(0, 0, 0, 0.85); color: #fff; padding: 8px 10px 8px 14px; border-radius: 10px; font-size: 14px; white-space: nowrap;
+  background: rgba(0, 0, 0, 0.85); color: #fff; padding: 8px 10px 8px 14px; border-radius: 10px; font-size: 14px; white-space: nowrap; max-width: calc(100% - 32px);
 }
+.nosound.wrap { white-space: normal; width: max-content; }
 .video-error .controls { margin-top: 8px; }
 .convert { max-width: 560px; max-height: 92vh; overflow-y: auto; }
 .convert-file { margin: 4px 0 14px; word-break: break-all; }

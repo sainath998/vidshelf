@@ -44,6 +44,7 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
   const [rate, setRate] = useState(() => Number(localStorage.getItem('vidshelf.rate')) || 1)
   const [autoplay, setAutoplay] = useState(() => localStorage.getItem('vidshelf.autoplay') !== 'false')
   const [flash, setFlash] = useState(null)
+  const [speedBlocked, setSpeedBlocked] = useState(false)
   const [showConvert, setShowConvert] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [issue, setIssue] = useState(null) // null | 'nosound' | 'nopicture'
@@ -114,7 +115,14 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
     if (ref.current) { ref.current.defaultPlaybackRate = r; ref.current.playbackRate = r }
     setRate(r)
     showFlash(`${r}x`)
+    // Speed extensions (e.g. Global Speed) reset playbackRate right after we set it. Detect that and explain.
+    clearTimeout(rateCheck.current)
+    rateCheck.current = setTimeout(() => {
+      const el = ref.current
+      if (el && Math.abs(el.playbackRate - r) > 0.001) { setSpeedBlocked(true); showFlash(`Speed held at ${el.playbackRate}x by an extension`) }
+    }, 300)
   }
+  const rateCheck = useRef(null)
 
   const flashTimer = useRef(null)
   const showFlash = (text) => {
@@ -263,7 +271,13 @@ export default function Player({ video, videos, thumbs, metas = {}, progress, on
             />
           )}
           {flash && <div className="flash">{flash}</div>}
-          {issue && !error && (
+          {speedBlocked && (
+            <div className="nosound wrap">
+              ⚡ A speed extension (like Global Speed) is overriding the speed. Turn it off for this site from its toolbar icon.
+              <button className="x" onClick={() => setSpeedBlocked(false)} aria-label="Dismiss">✕</button>
+            </div>
+          )}
+          {issue && !error && !speedBlocked && (
             <div className="nosound">
               {issue === 'nopicture'
                 ? "🖼️ No picture? This file's video format isn't supported by your browser."
