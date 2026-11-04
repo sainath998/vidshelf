@@ -1,11 +1,12 @@
 :root {
-  --bg: #0f0f0f;
-  --panel: #1a1a1a;
-  --panel-2: #272727;
-  --border: #303030;
-  --text: #f1f1f1;
-  --muted: #aaaaaa;
-  --input: #121212;
+  /* Ember (the default theme) so the first paint matches before settings load */
+  --bg: #1a0f12;
+  --panel: #25151a;
+  --panel-2: #341e25;
+  --border: #4a2b35;
+  --text: #fbe9ee;
+  --muted: #c29aa8;
+  --input: #160c0f;
   --accent: #ff3b3b;
   --card-min: 280px;
   --r: 12px;

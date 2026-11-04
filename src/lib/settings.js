@@ -28,7 +28,7 @@ export const CARD_SIZES = { compact: 210, comfortable: 280, large: 360 }
 export const CORNERS = { rounded: 12, soft: 6, sharp: 0 }
 export const FONT_SCALES = { small: 14, normal: 16, large: 18 }
 
-const DEFAULTS = { theme: 'dark', accent: 'red', cardSize: 'comfortable', corners: 'rounded', font: 'normal', ambient: true }
+const DEFAULTS = { theme: 'ember', accent: 'red', cardSize: 'comfortable', corners: 'rounded', font: 'normal', ambient: true }
 const KEY = 'vidshelf.settings'
 
 export function loadSettings() {
